@@ -126,7 +126,7 @@ export function ContactClient() {
                         </Reveal>
 
                         {/* Right Column: Premium Form Container */}
-                        <Reveal direction="right" delayMs={80}>
+                        <Reveal animation="slide-right" delayMs={80}>
                             <div className="relative">
                                 <div className="absolute inset-0 bg-orange/5 rounded-[40px] translate-x-6 translate-y-6 -z-10 bg-gradient-to-br from-orange/10 to-transparent"></div>
 
