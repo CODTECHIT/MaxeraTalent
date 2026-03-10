@@ -113,7 +113,7 @@ export default function IndustriesPage() {
                                 </Reveal>
 
                                 <Reveal
-                                    direction="right"
+                                    animation="slide-right"
                                     delayMs={80 + index * 60}
                                     className={cn("relative order-1 lg:order-2", index % 2 !== 0 ? "lg:order-1" : "lg:order-2")}
                                 >
