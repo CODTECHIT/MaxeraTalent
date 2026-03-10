@@ -1,0 +1,353 @@
+================================================================================
+MAXERA TALENT — UI IMPROVEMENT & BUG FIX DOCUMENT
+Version: 1.0 | Date: June 2025 | Type: QA Review + Fix Instructions
+Based on: Live design review across all 9 mobile screenshots
+================================================================================
+
+PRIORITY LEGEND:
+  [P0] = Fix immediately — broken or incorrect
+  [P1] = Fix before launch — visible quality issue
+  [P2] = Fix after launch — polish and enhancement
+
+================================================================================
+ISSUE #1 — STEP NUMBERING BUG ON EMPLOYERS PAGE
+================================================================================
+
+Priority   : [P0] — Incorrect content, must fix
+Page       : /employers
+Section    : "The Maxera Talent Process" steps
+
+PROBLEM:
+  The hiring process steps are numbered incorrectly.
+  Currently showing: 1, 2, 3, 4, 6
+  Step 5 is showing as "6" — numbering jumps from 4 to 6.
+
+EXPECTED:
+  Steps should be numbered: 1, 2, 3, 4, 5
+
+FIX INSTRUCTIONS:
+  - Locate the HiringProcess component (src/components/sections/HiringProcess.tsx)
+  - Check the steps array — likely step 5 has index or number hardcoded as 6
+  - If using .map() with index, ensure index + 1 is used correctly
+  - If numbers are hardcoded, change the 5th item number from 6 to 5
+  - This same component is likely shared on the Home page — verify it shows
+    correctly there too after fixing
+
+EXAMPLE FIX (if hardcoded):
+  WRONG : { number: 6, title: "Successful Placement" }
+  RIGHT : { number: 5, title: "Successful Placement" }
+
+
+================================================================================
+ISSUE #2 — HERO TEXT READABILITY ON MOBILE
+================================================================================
+
+Priority   : [P0] — Readability issue, affects all pages with hero sections
+Pages      : / (Home), /employers, /candidates, /jobs, /about, /services,
+             /industries, /contact
+
+PROBLEM:
+  Body text and sub-headline text inside the dark navy hero sections is too
+  small and low contrast on mobile screens. Text is hard to read at a glance.
+  The overlay or background is very dark but the text weight/size is too light
+  to compensate.
+
+FIX INSTRUCTIONS:
+
+  1. HERO BODY TEXT SIZE
+     - Mobile: increase from current size to minimum 16px (text-base)
+     - Ensure sub-headline is at least text-base (16px) on mobile
+     - Use minimum font-weight of 400, consider 500 (medium) for sub-headline
+
+  2. TEXT COLOR
+     - All hero body text must be: text-white or text-white/90
+     - Never use text-white/60 or muted colors on dark hero backgrounds
+     - Sub-headline: use white/80 at minimum — not lower opacity
+
+  3. LINE HEIGHT
+     - Hero body text: set line-height to 1.6 (leading-relaxed in Tailwind)
+     - This makes text easier to scan on small screens
+
+  4. HERO CONTAINER PADDING
+     - Mobile padding: minimum px-5 py-16 (20px horizontal, 64px vertical)
+     - Ensure text does not touch screen edges — always maintain side padding
+
+  TAILWIND CLASSES TO APPLY ON HERO TEXT:
+    Headline    : text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight
+    Sub-headline: text-base sm:text-lg text-white/80 leading-relaxed font-medium
+    Body copy   : text-sm sm:text-base text-white/75 leading-relaxed
+
+
+================================================================================
+ISSUE #3 — BROKEN / MISSING ICONS ON INDUSTRIES PAGE
+================================================================================
+
+Priority   : [P1] — Visual quality issue
+Page       : /industries
+Section    : All 5 industry sections (Technology, Healthcare, Finance,
+             Engineering, Business Operations)
+
+PROBLEM:
+  Some industry section icons are not rendering correctly on mobile.
+  Icon containers appear but icons inside are missing or showing as broken
+  empty boxes.
+
+FIX INSTRUCTIONS:
+
+  1. VERIFY ICON IMPORTS
+     - Check that all Lucide React icons used are correctly imported
+     - Example: import { Monitor, Heart, TrendingUp, Settings, Briefcase } from 'lucide-react'
+     - Common mistake: importing icon names that don't exist in Lucide React
+
+  2. SUGGESTED ICON MAPPING
+     Technology          : <Monitor /> or <Code2 />
+     Healthcare          : <Heart /> or <Stethoscope />
+     Finance             : <TrendingUp /> or <DollarSign />
+     Engineering         : <Settings /> or <Wrench />
+     Business Operations : <Briefcase /> or <Building2 />
+
+  3. ICON CONTAINER STYLING
+     - Each icon should be in a styled container:
+       <div className="w-12 h-12 bg-teal-500/10 rounded-xl flex items-center
+                       justify-center mb-4">
+         <IconName className="w-6 h-6 text-teal-500" />
+       </div>
+     - Always set explicit width and height on the icon (w-6 h-6 minimum)
+     - Never rely on default icon sizing
+
+  4. FALLBACK CHECK
+     - If an icon fails, the container should still be visible
+     - Add a fallback: if icon is null/undefined, show a placeholder div
+
+
+================================================================================
+ISSUE #4 — JOBS PAGE FILTER BAR OVERFLOW ON MOBILE
+================================================================================
+
+Priority   : [P1] — UX issue on mobile
+Page       : /jobs
+Section    : Filter bar / category chips row
+
+PROBLEM:
+  The filter chip row (ALL, TECHNOLOGY, HEALTHCARE, etc.) overflows on mobile
+  and chips are being cut off on the right side. Users cannot see or tap all
+  filter options.
+
+FIX INSTRUCTIONS:
+
+  OPTION A — Horizontal Scroll (recommended for MVP):
+    - Wrap the chips container in a horizontally scrollable div
+    - Apply: overflow-x-auto, whitespace-nowrap, -mx-4 px-4 (full bleed scroll)
+    - Hide scrollbar visually with: scrollbar-hide (or custom CSS)
+
+    <div className="overflow-x-auto scrollbar-hide -mx-4 px-4">
+      <div className="flex gap-2 w-max">
+        {filters.map(filter => <FilterChip key={filter} />)}
+      </div>
+    </div>
+
+  OPTION B — Wrap to Multiple Lines:
+    - Allow chips to wrap: flex-wrap gap-2
+    - This works if there are 5 or fewer filters
+
+    <div className="flex flex-wrap gap-2">
+      {filters.map(filter => <FilterChip key={filter} />)}
+    </div>
+
+  CHIP STYLING:
+    - Min tap target: 36px height minimum
+    - Active chip: bg-teal-500 text-white
+    - Inactive chip: bg-white border border-slate-200 text-slate-600
+    - Border-radius: rounded-full
+    - Padding: px-4 py-1.5 text-sm font-medium
+
+
+================================================================================
+ISSUE #5 — FOOTER NAVIGATION LINKS TOO SMALL ON MOBILE
+================================================================================
+
+Priority   : [P1] — Readability and tap target issue
+Page       : All pages (global footer)
+Section    : Footer navigation columns
+
+PROBLEM:
+  Footer links are very small and cramped on mobile. Text is hard to read and
+  tap targets are too small (below the 44px minimum recommended for touch).
+  The multi-column footer layout is too compressed on small screens.
+
+FIX INSTRUCTIONS:
+
+  1. FONT SIZE
+     - Footer links: minimum text-sm (14px) — do not go below this on mobile
+     - Footer column headings: text-sm font-semibold tracking-wider uppercase
+
+  2. TAP TARGETS
+     - Each link must have at minimum py-1 to increase tap area
+     - Prefer py-2 for footer links on mobile
+
+  3. MOBILE LAYOUT — CHANGE COLUMN STRUCTURE:
+     CURRENT  : 4 columns squeezed on mobile (too cramped)
+     REQUIRED : Stack to 2x2 grid on mobile, single column on very small screens
+
+     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+  4. SPACING BETWEEN LINKS
+     - Add space-y-2 between footer links in each column
+     - Column heading: mb-4 below the heading before links start
+
+  5. FOOTER BOTTOM BAR
+     - On mobile: stack copyright and "Built by" text vertically (flex-col)
+     - Center both on mobile, row on desktop
+     - Text size: text-xs text-white/50
+
+  RECOMMENDED FOOTER LINK STYLES:
+    <a className="text-sm text-white/60 hover:text-white transition-colors
+                  duration-200 py-1 block">
+      Page Name
+    </a>
+
+
+================================================================================
+ISSUE #6 — ABOUT PAGE MISSION / VISION QUOTE STYLING
+================================================================================
+
+Priority   : [P2] — Visual polish
+Page       : /about
+Section    : Mission & Vision cards
+
+PROBLEM:
+  The Mission and Vision quote text appears as plain body text without visual
+  distinction. The quotation marks look like plain characters, not styled
+  blockquote elements. Does not feel premium enough for a brand statement.
+
+FIX INSTRUCTIONS:
+
+  1. CARD STYLING — upgrade the Mission/Vision cards:
+     - Add a left border accent: border-l-4 border-teal-500
+     - Background: bg-teal-500/5 (very subtle teal tint)
+     - Padding: p-6 rounded-xl
+     - The quote text itself: text-lg font-medium text-slate-700 italic leading-relaxed
+
+  2. LARGE DECORATIVE QUOTE MARK:
+     - Add a large " character above the text as a decorative element
+     - Style it: text-6xl text-teal-500/20 font-serif leading-none mb-2
+     - This creates a premium editorial feel
+
+  3. LABEL:
+     - Above each card, add a small label tag:
+       "OUR MISSION" / "OUR VISION"
+       Style: text-xs font-bold tracking-widest uppercase text-teal-600 mb-2
+
+  EXAMPLE STRUCTURE:
+    <div className="border-l-4 border-teal-500 bg-teal-500/5 p-6 rounded-xl">
+      <p className="text-xs font-bold tracking-widest uppercase text-teal-600 mb-3">
+        Our Mission
+      </p>
+      <div className="text-5xl text-teal-500/20 font-serif leading-none mb-1">"</div>
+      <p className="text-lg font-medium text-slate-700 italic leading-relaxed">
+        Mission statement text here...
+      </p>
+    </div>
+
+
+================================================================================
+ISSUE #7 — GENERAL MOBILE SPACING & PADDING CONSISTENCY
+================================================================================
+
+Priority   : [P2] — Polish
+Pages      : All pages
+Section    : All sections
+
+PROBLEM:
+  Some sections have inconsistent horizontal padding on mobile causing text to
+  sit too close to screen edges. This is a general polish issue visible across
+  multiple pages in the screenshots.
+
+FIX INSTRUCTIONS:
+
+  1. GLOBAL CONTAINER — ensure all page sections use a consistent container:
+     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+  2. SECTION PADDING — standardise vertical padding across all sections:
+     Mobile   : py-12  (48px top and bottom)
+     Tablet   : sm:py-16 (64px)
+     Desktop  : lg:py-20 (80px)
+
+  3. CARD INNER PADDING:
+     Mobile   : p-5 or p-6
+     Desktop  : lg:p-8
+
+  4. NEVER let content touch screen edges — always maintain minimum px-4 (16px)
+     horizontal padding on mobile across all sections.
+
+
+================================================================================
+ISSUE #8 — HOME PAGE HERO STATS ROW
+================================================================================
+
+Priority   : [P2] — Enhancement
+Page       : / (Home)
+Section    : Stats row below hero headline (500+ placements, 15+ industries etc.)
+
+PROBLEM:
+  The stats row in the hero section is present but the numbers and labels are
+  small and hard to distinguish from the surrounding text on mobile.
+
+FIX INSTRUCTIONS:
+
+  1. STAT NUMBER styling:
+     - Font: Sora Bold
+     - Size: text-2xl sm:text-3xl
+     - Color: text-teal-400 (bright teal stands out on navy)
+
+  2. STAT LABEL styling:
+     - Font: DM Sans Regular
+     - Size: text-xs sm:text-sm
+     - Color: text-white/60
+     - Uppercase with tracking: uppercase tracking-wide
+
+  3. DIVIDER between stats:
+     - On mobile: stack stats 2x2 grid
+     - On desktop: horizontal row with dividers (border-r border-white/10)
+
+  4. CONTAINER:
+     <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-10 pt-10
+                     border-t border-white/10">
+
+
+================================================================================
+SUMMARY — ALL ISSUES AT A GLANCE
+================================================================================
+
+#  | Priority | Page          | Issue                              | Status
+---|----------|---------------|------------------------------------|----------
+1  | P0       | /employers    | Step numbering shows 1,2,3,4,6     | Fix now
+2  | P0       | All pages     | Hero text too small / low contrast | Fix now
+3  | P1       | /industries   | Icons broken / not rendering       | Fix soon
+4  | P1       | /jobs         | Filter chips overflow on mobile    | Fix soon
+5  | P1       | All pages     | Footer links too small, cramped    | Fix soon
+6  | P2       | /about        | Mission/Vision cards need styling  | Polish
+7  | P2       | All pages     | Inconsistent section padding       | Polish
+8  | P2       | / (Home)      | Stats row hard to read on mobile   | Polish
+
+
+================================================================================
+TESTING CHECKLIST — AFTER FIXES APPLIED
+================================================================================
+
+Run through these checks on mobile (375px) after implementing all fixes:
+
+  [ ] Employers page shows steps 1, 2, 3, 4, 5 (not 6)
+  [ ] All hero sub-headlines are readable without zooming
+  [ ] All 5 industry icons render correctly on /industries
+  [ ] Job filter chips are fully visible and tappable on mobile
+  [ ] Footer links are readable and have adequate tap targets
+  [ ] About page Mission and Vision cards have styled quote treatment
+  [ ] No content touches screen edges (always min 16px padding)
+  [ ] Stats on home hero are visually distinct with teal numbers
+  [ ] Run Lighthouse on mobile — target score >= 90
+  [ ] Test on real device (iPhone SE size = worst case at 375px)
+
+================================================================================
+END OF IMPROVEMENT DOCUMENT
+================================================================================

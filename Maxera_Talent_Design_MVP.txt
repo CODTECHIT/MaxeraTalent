@@ -1,0 +1,576 @@
+================================================================================
+MAXERA TALENT — DESIGN MVP DOCUMENT
+Version: 1.0 | Date: June 2025 | Audience: Developer / Designer
+================================================================================
+
+
+================================================================================
+1. DESIGN OVERVIEW
+================================================================================
+
+This Design MVP document defines the complete visual design system and
+page-by-page layout blueprint for the Maxera Talent website. It is the single
+source of truth for all front-end visual decisions.
+
+GOAL: Deliver a modern, corporate, minimal website that builds credibility and
+drives leads. Every design decision should reinforce trust and guide users to
+convert.
+
+
+================================================================================
+2. DESIGN PRINCIPLES
+================================================================================
+
+Principle               | Description                                    | Practical Application
+------------------------|------------------------------------------------|----------------------------------------------
+Corporate Credibility   | Must feel like a trusted, established firm     | Dark navy palette, clean type, no gimmicks
+Conversion-First        | Every page has a clear next action             | Prominent CTAs, minimal distractions
+Mobile-First            | Design for small screens first                 | Stack layouts, tap-friendly buttons (44px+)
+Visual Hierarchy        | Guide the eye to what matters most             | Size, weight, colour signal importance
+Purposeful Whitespace   | Space communicates professionalism             | Generous padding; never cramped
+Consistent System       | Reuse components, tokens, and patterns         | Design tokens + shared component library
+
+
+================================================================================
+3. COLOUR SYSTEM
+================================================================================
+
+PRIMARY PALETTE:
+  Name          | Hex       | Usage
+  --------------|-----------|--------------------------------------------------
+  Navy          | #0a1628   | Primary brand — header, hero, section backgrounds
+  Navy Dark     | #071020   | Hover states on navy, deep overlay backgrounds
+  Teal          | #0d9488   | Primary CTAs, accents, active states, highlights
+  Teal Dark     | #0f766e   | Button hover, link hover
+  Teal Light    | #e6f7f6   | Tag backgrounds, callout backgrounds
+  Surface       | #f8fafc   | Card backgrounds, alternating rows, page body
+  Slate         | #1e293b   | Section headings on white, dark body text
+  Body          | #334155   | Paragraph text, list items
+  Muted         | #64748b   | Labels, helper text, secondary copy, placeholders
+  Border        | #e2e8f0   | Card borders, input borders, dividers
+  White         | #ffffff   | Text on dark backgrounds, button labels
+
+COLOUR USAGE RULES:
+  - Never use teal as a background for large areas — accent only
+  - All body text on white must meet WCAG AA contrast (4.5:1 minimum)
+  - Navy backgrounds always use white or teal text
+  - Interactive elements must have visible hover and focus states
+
+
+================================================================================
+4. TYPOGRAPHY SYSTEM
+================================================================================
+
+FONTS:
+  Display / Heading : Sora       (Google Fonts)
+  Body / UI         : DM Sans    (Google Fonts)
+  Fallback          : system-ui, -apple-system, sans-serif
+  Loading           : font-display: swap (prevent FOIT)
+
+SCALE:
+  Role               | Font     | Weight      | Size (Desktop) | Colour
+  -------------------|----------|-------------|----------------|------------------
+  Display / Hero H1  | Sora     | Bold 700    | 56–72px        | #0a1628 or #fff
+  Page Heading H1    | Sora     | Bold 700    | 40–48px        | #0a1628
+  Section Heading H2 | Sora     | SemiBold 600| 32–36px        | #0a1628
+  Sub-heading H3     | Sora     | SemiBold 600| 24px           | #1e293b
+  Body Paragraph     | DM Sans  | Regular 400 | 16–18px        | #334155
+  Body Lead          | DM Sans  | Medium 500  | 18–20px        | #334155
+  CTA / Button       | Sora     | SemiBold 600| 15–16px        | #ffffff
+  Nav Links          | Sora     | Medium 500  | 14–15px        | #ffffff
+  Tag / Badge        | Sora     | Bold 700    | 11–12px        | #0d9488
+  Form Labels        | DM Sans  | Medium 500  | 13–14px        | #334155
+  Caption / Helper   | DM Sans  | Regular 400 | 12–13px        | #64748b
+
+RESPONSIVE SCALING:
+  - Use clamp() for hero titles: clamp(2rem, 5vw, 4.5rem)
+  - Body text: 16px mobile, 17–18px desktop
+  - Line height: 1.6 body | 1.2 display | 1.4 UI elements
+  - Letter-spacing: 0.04em on nav links, tags, uppercase labels
+
+
+================================================================================
+5. SPACING & LAYOUT
+================================================================================
+
+SPACING TOKENS:
+  Token    | Value | Usage
+  ---------|-------|-----------------------------------------------
+  space-1  | 4px   | Micro gaps within components
+  space-2  | 8px   | Icon-to-text gap, tight inner padding
+  space-3  | 12px  | Small component gaps
+  space-4  | 16px  | Standard inner padding, list gaps
+  space-5  | 20px  | Card inner horizontal padding
+  space-6  | 24px  | Card padding, section inner gaps
+  space-8  | 32px  | Section top/bottom padding (mobile)
+  space-12 | 48px  | Section top/bottom padding (tablet)
+  space-16 | 64px  | Section top/bottom padding (desktop)
+  space-20 | 80px  | Hero vertical padding
+  space-24 | 96px  | Hero bottom padding on desktop
+
+GRID SYSTEM:
+  - Max content width: 1280px (max-w-7xl in Tailwind)
+  - Horizontal padding: 16px mobile / 24px tablet / 32px desktop
+  - Grid columns: 1 col mobile, 2 col tablet, 3 col desktop
+  - Gutter: 24px between grid items
+
+
+================================================================================
+6. COMPONENT SPECIFICATIONS
+================================================================================
+
+--------------------------------------------------------------------------------
+6.1 BUTTONS
+--------------------------------------------------------------------------------
+
+Variant          | Background   | Text     | Border      | Hover                  | Usage
+-----------------|--------------|----------|-------------|------------------------|---------------------------
+Primary (Teal)   | #0d9488      | #ffffff  | none        | bg #0f766e, -1px Y     | Main CTAs: Hire Talent
+Secondary (Navy) | #0a1628      | #ffffff  | none        | bg #071020             | Dark section CTAs
+Outline (White)  | transparent  | #ffffff  | 2px white   | bg white, text navy    | Hero secondary button
+Outline (Navy)   | transparent  | #0a1628  | 2px navy    | bg navy, text white    | Inline secondary actions
+Ghost            | transparent  | #0d9488  | none        | text darker, underline | Learn More links
+
+All buttons:
+  - Border-radius : 8px
+  - Padding       : 14px 28px
+  - Font-size     : 15px
+  - Font-weight   : 600 (SemiBold)
+  - Font-family   : Sora
+  - Min height    : 44px (touch target)
+
+
+--------------------------------------------------------------------------------
+6.2 CARDS
+--------------------------------------------------------------------------------
+
+Card Type     | Background | Border       | Radius | Shadow    | Hover
+--------------|------------|--------------|--------|-----------|---------------------------
+Service Card  | #ffffff    | 1px #e2e8f0  | 16px   | shadow-sm | shadow-md, border-teal
+Industry Tile | #f8fafc    | 1px #e2e8f0  | 16px   | shadow-sm | bg-white, shadow-md
+Job Listing   | #ffffff    | 1px #e2e8f0  | 12px   | shadow-sm | shadow-md, border-l-4 teal
+Stats Card    | #0a1628    | none         | 16px   | none      | bg-navy-700
+Value Card    | #f8fafc    | 1px #e2e8f0  | 16px   | none      | bg-white
+
+
+--------------------------------------------------------------------------------
+6.3 FORM FIELDS
+--------------------------------------------------------------------------------
+
+  - Input height     : 48px (py-3 px-4)
+  - Border           : 1px solid #e2e8f0
+  - Focus            : 2px ring teal/30 + border-teal
+  - Border-radius    : 8px
+  - Background       : white | disabled: #f8fafc
+  - Label            : 13px DM Sans Medium, #334155, margin-bottom 6px
+  - Error state      : border red-400, error text 12px red-500 below field
+  - Success state    : green check icon in field, border green-400
+  - File upload      : dashed border, teal icon, drag-and-drop area 120px tall
+
+
+--------------------------------------------------------------------------------
+6.4 NAVIGATION (NAVBAR)
+--------------------------------------------------------------------------------
+
+  - Height           : 64px (scrolled: 56px with transition)
+  - Background       : #0a1628 | scrolled: navy/98 + backdrop-blur
+  - Logo             : left-aligned, SVG icon + "Maxera Talent" wordmark
+  - Nav links        : Sora Medium 14px, white, 0.04em tracking
+  - Link hover       : teal colour + underline
+  - Active link      : teal colour + 2px bottom border
+  - CTA button       : Teal Primary button, right-aligned
+  - Mobile (<768px)  : hamburger icon, slide-down full-width drawer
+  - Mobile drawer    : navy background, links stack vertically
+
+
+--------------------------------------------------------------------------------
+6.5 FOOTER
+--------------------------------------------------------------------------------
+
+  - Background       : #0a1628 (navy)
+  - Text color       : white
+  - Layout           : 4-column desktop | 2-col tablet | 1-col mobile
+  - Columns          : (1) Logo + tagline  (2) Quick Links  (3) Services  (4) Contact
+  - Bottom bar       : copyright left | "Built by Maxera Talent" right
+  - Top border       : 1px solid white/10
+
+
+--------------------------------------------------------------------------------
+6.6 TAGS & BADGES
+--------------------------------------------------------------------------------
+
+  - Section tag      : Sora Bold 11px, teal colour, 0.12em tracking, uppercase
+  - Industry badge   : teal-light bg, teal text, rounded-full, 12px, px-3 py-1
+  - Job type badge   : slate bg, white text, rounded, 11px
+
+
+================================================================================
+7. PAGE LAYOUT WIREFRAMES
+================================================================================
+
+Legend:
+  [NAVY BG]   = Dark navy background (#0a1628)
+  [GRAY BG]   = Surface background (#f8fafc)
+  [WHITE BG]  = White background
+  [TEAL BG]   = Teal light background (#e6f7f6)
+  ============ = Section divider
+
+
+--------------------------------------------------------------------------------
+7.1 HOME PAGE (/)
+--------------------------------------------------------------------------------
+
++------------------------------------------------------------------------------+
+| [NAVY BG] NAVBAR                                                              |
+| Logo    Home About Services Industries Employers Candidates Jobs Contact      |
+|                                                          [ Hire Talent ]      |
++------------------------------------------------------------------------------+
+| [NAVY BG] HERO SECTION                                                        |
+|                                                                               |
+|   "Find the Right Talent. Fast."                                              |
+|   Sub-headline text here (18px, muted white)                                  |
+|                                                                               |
+|   [ Hire Talent ]   [ Find Jobs ]                                             |
+|                                                                               |
+|   Trust badges: Placements | Industries | Years Active                        |
++------------------------------------------------------------------------------+
+| [WHITE BG] COMPANY INTRODUCTION                                               |
+|   2–3 sentence overview of Maxera Talent + optional stat row                  |
++------------------------------------------------------------------------------+
+| [GRAY BG] SERVICES SECTION                                                    |
+|   +-----------------------+ +-----------------------+ +---------------------+ |
+|   | Contingent Recruitment| | Contract Staffing     | | Direct Hire         | |
+|   | Icon + description    | | Icon + description    | | Icon + description  | |
+|   | [Learn More]          | | [Learn More]          | | [Learn More]        | |
+|   +-----------------------+ +-----------------------+ +---------------------+ |
++------------------------------------------------------------------------------+
+| [WHITE BG] INDUSTRIES SECTION                                                 |
+|   [Tech] [Healthcare] [Finance] [Engineering] [Business Ops]                  |
+|   5-column icon tile grid linking to /industries                              |
++------------------------------------------------------------------------------+
+| [GRAY BG] HIRING PROCESS SECTION                                              |
+|   1. Understand  →  2. Source  →  3. Screen  →  4. Interview  →  5. Place   |
++------------------------------------------------------------------------------+
+| [WHITE BG] TESTIMONIALS (optional MVP)                                        |
+|   2–3 quote cards with name, title, company                                   |
++------------------------------------------------------------------------------+
+| [NAVY BG] CTA BANNER                                                          |
+|   "Ready to Build Your Team?"         [ Hire Talent Today ]                  |
++------------------------------------------------------------------------------+
+| [NAVY DARK] FOOTER                                                            |
+|   Logo + tagline | Quick Links | Services | Contact                           |
+|   © 2025 Maxera Talent. All rights reserved.                                  |
++------------------------------------------------------------------------------+
+
+
+--------------------------------------------------------------------------------
+7.2 ABOUT PAGE (/about)
+--------------------------------------------------------------------------------
+
++------------------------------------------------------------------------------+
+| [NAVY BG] NAVBAR                                                              |
++------------------------------------------------------------------------------+
+| [NAVY BG] PAGE HERO                                                           |
+|   "Who We Are"  |  Sub-headline about company                                 |
++------------------------------------------------------------------------------+
+| [WHITE BG] COMPANY OVERVIEW                                                   |
+|   2–4 paragraphs  |  Optional image/illustration on right                     |
++------------------------------------------------------------------------------+
+| [GRAY BG] MISSION & VISION                                                    |
+|   +-----------------------------------+ +-----------------------------------+ |
+|   | MISSION                          | | VISION                           | |
+|   | "Our Mission is to…"             | | "Our Vision is to…"              | |
+|   +-----------------------------------+ +-----------------------------------+ |
++------------------------------------------------------------------------------+
+| [WHITE BG] CORE VALUES                                                        |
+|   6 value cards in 2x3 or 3x2 grid                                           |
+|   Each: icon + value name + 1-line description                                |
++------------------------------------------------------------------------------+
+| [GRAY BG] TEAM (optional MVP)                                                 |
+|   Placeholder headshot cards — name + role title                              |
++------------------------------------------------------------------------------+
+| [NAVY BG] CTA BANNER                                                          |
+|   "Partner With Us"          [ Get in Touch ]                                 |
++------------------------------------------------------------------------------+
+| [NAVY DARK] FOOTER                                                            |
++------------------------------------------------------------------------------+
+
+
+--------------------------------------------------------------------------------
+7.3 SERVICES PAGE (/services)
+--------------------------------------------------------------------------------
+
++------------------------------------------------------------------------------+
+| [NAVY BG] NAVBAR                                                              |
++------------------------------------------------------------------------------+
+| [NAVY BG] PAGE HERO                                                           |
+|   "Our Services"  |  Overview sentence                                        |
++------------------------------------------------------------------------------+
+| [WHITE BG] CONTINGENT RECRUITMENT                                             |
+|   Icon + Title + 2–3 para description + key benefits list + [ Get Started ]   |
++------------------------------------------------------------------------------+
+| [GRAY BG] CONTRACT STAFFING                                                   |
+|   Icon + Title + description + benefits list                                  |
++------------------------------------------------------------------------------+
+| [WHITE BG] DIRECT HIRE                                                        |
+|   Icon + Title + description + benefits list                                  |
++------------------------------------------------------------------------------+
+| [GRAY BG] COMPARISON TABLE                                                    |
+|   Feature-by-feature comparison of all 3 services                             |
++------------------------------------------------------------------------------+
+| [NAVY BG] CTA BANNER                                                          |
+|   "Not Sure Which Service Fits?"        [ Contact Us ]                        |
++------------------------------------------------------------------------------+
+| [NAVY DARK] FOOTER                                                            |
++------------------------------------------------------------------------------+
+
+
+--------------------------------------------------------------------------------
+7.4 INDUSTRIES PAGE (/industries)
+--------------------------------------------------------------------------------
+
++------------------------------------------------------------------------------+
+| [NAVY BG] NAVBAR                                                              |
++------------------------------------------------------------------------------+
+| [NAVY BG] PAGE HERO                                                           |
+|   "Industries We Serve"  |  Intro sentence                                    |
++------------------------------------------------------------------------------+
+| [WHITE BG] TECHNOLOGY                                                         |
+|   Icon | Heading | Description | Role examples | [ View Tech Jobs → ]         |
++------------------------------------------------------------------------------+
+| [GRAY BG] HEALTHCARE                                                          |
+|   Same layout, alternating background                                         |
++------------------------------------------------------------------------------+
+| [WHITE BG] FINANCE                                                            |
++------------------------------------------------------------------------------+
+| [GRAY BG] ENGINEERING                                                         |
++------------------------------------------------------------------------------+
+| [WHITE BG] BUSINESS OPERATIONS                                                |
++------------------------------------------------------------------------------+
+| [NAVY BG] CTA BANNER                                                          |
+|   "Looking for talent in your industry?"     [ Start Hiring ]                 |
++------------------------------------------------------------------------------+
+| [NAVY DARK] FOOTER                                                            |
++------------------------------------------------------------------------------+
+
+
+--------------------------------------------------------------------------------
+7.5 EMPLOYERS PAGE (/employers)
+--------------------------------------------------------------------------------
+
++------------------------------------------------------------------------------+
+| [NAVY BG] NAVBAR                                                              |
++------------------------------------------------------------------------------+
+| [NAVY BG] PAGE HERO                                                           |
+|   "Let's Find Your Next Hire"  |  Sub-headline  |  [ Submit Hiring Request ] |
++------------------------------------------------------------------------------+
+| [WHITE BG] WHY MAXERA TALENT                                                  |
+|   4–6 benefit points in 2-column layout                                       |
+|   - Speed of placement        - Quality candidates                            |
+|   - No hire, no fee           - Wide network                                  |
+|   - Industry expertise        - Dedicated recruiter                           |
++------------------------------------------------------------------------------+
+| [GRAY BG] HIRING PROCESS (shared component)                                   |
+|   1. Understand  →  2. Source  →  3. Screen  →  4. Interview  →  5. Place   |
++------------------------------------------------------------------------------+
+| [WHITE BG] HIRING REQUEST FORM                                                |
+|   +------------------------------------------+                               |
+|   | Full Name *          | Company *          |                               |
+|   | Job Title *          | Email *            |                               |
+|   | Phone                | Industry * [▾]     |                               |
+|   | Job Type * [▾]       |                    |                               |
+|   | Message / Role Details                    |                               |
+|   |                                           |                               |
+|   |              [ Submit Request ]           |                               |
+|   +------------------------------------------+                               |
++------------------------------------------------------------------------------+
+| [NAVY DARK] FOOTER                                                            |
++------------------------------------------------------------------------------+
+
+
+--------------------------------------------------------------------------------
+7.6 CANDIDATES PAGE (/candidates)
+--------------------------------------------------------------------------------
+
++------------------------------------------------------------------------------+
+| [NAVY BG] NAVBAR                                                              |
++------------------------------------------------------------------------------+
+| [NAVY BG] PAGE HERO                                                           |
+|   "Your Next Opportunity Starts Here"  |  Sub-headline                        |
++------------------------------------------------------------------------------+
+| [WHITE BG] WHY WORK WITH US                                                   |
+|   3–4 candidate benefit cards in a row                                        |
++------------------------------------------------------------------------------+
+| [GRAY BG] HOW IT WORKS                                                        |
+|   1. Submit Resume  →  2. Screening Call  →  3. Placement                    |
++------------------------------------------------------------------------------+
+| [WHITE BG] BROWSE BY INDUSTRY                                                 |
+|   Industry tile links → /jobs filtered by industry                            |
++------------------------------------------------------------------------------+
+| [GRAY BG] RESUME SUBMISSION FORM                                              |
+|   +------------------------------------------+                               |
+|   | Full Name *          | Email *            |                               |
+|   | Phone                | Desired Job Title  |                               |
+|   | Industry * [▾]       |                    |                               |
+|   | Upload Resume * [PDF/DOC - max 5MB]       |                               |
+|   | [ Drag & drop or click to upload ]        |                               |
+|   | Message (optional)                        |                               |
+|   |              [ Submit Resume ]            |                               |
+|   +------------------------------------------+                               |
++------------------------------------------------------------------------------+
+| [NAVY DARK] FOOTER                                                            |
++------------------------------------------------------------------------------+
+
+
+--------------------------------------------------------------------------------
+7.7 JOBS PAGE (/jobs)
+--------------------------------------------------------------------------------
+
++------------------------------------------------------------------------------+
+| [NAVY BG] NAVBAR                                                              |
++------------------------------------------------------------------------------+
+| [NAVY BG] PAGE HERO                                                           |
+|   "Browse Open Positions"  |  [24 Jobs Available]                             |
++------------------------------------------------------------------------------+
+| [GRAY BG] FILTER BAR                                                          |
+|   Industry: [All ▾]   Type: [All ▾]   Location: [All ▾]   [ Search ]        |
++------------------------------------------------------------------------------+
+| [WHITE BG] JOB LISTINGS GRID (2-col desktop, 1-col mobile)                   |
+|   +-----------------------------+ +-----------------------------+              |
+|   | Software Engineer           | | Data Analyst                |             |
+|   | New York, NY                | | Austin, TX                  |             |
+|   | [Full-time] [Technology]    | | [Contract] [Finance]        |             |
+|   | Job description 2–3 lines   | | Job description 2–3 lines   |             |
+|   | [ Apply Now ]               | | [ Apply Now ]               |             |
+|   +-----------------------------+ +-----------------------------+              |
+|   (repeat for 6–8 seeded listings)                                            |
++------------------------------------------------------------------------------+
+| [WHITE BG] PAGINATION                                                         |
+|   ← 1  2  3 →                                                                 |
++------------------------------------------------------------------------------+
+| [TEAL BG] CTA STRIP                                                           |
+|   "Don't see a fit? Submit your resume anyway."    [ Upload Resume ]          |
++------------------------------------------------------------------------------+
+| [NAVY DARK] FOOTER                                                            |
++------------------------------------------------------------------------------+
+
+
+--------------------------------------------------------------------------------
+7.8 CONTACT PAGE (/contact)
+--------------------------------------------------------------------------------
+
++------------------------------------------------------------------------------+
+| [NAVY BG] NAVBAR                                                              |
++------------------------------------------------------------------------------+
+| [NAVY BG] PAGE HERO                                                           |
+|   "Get in Touch"  |  "We'd love to hear from you"                            |
++------------------------------------------------------------------------------+
+| [WHITE BG] TWO-COLUMN LAYOUT                                                  |
+|   LEFT (form):                    | RIGHT (info):                             |
+|   +--------------------------+    |  Email: hello@maxeratalent.com             |
+|   | Full Name *              |    |  Address: [if applicable]                 |
+|   | Email *                  |    |  Hours: Mon–Fri 9am–6pm EST               |
+|   | Company                  |    |                                           |
+|   | Phone                    |    |  [LinkedIn icon] [Twitter icon]           |
+|   | Message *                |    |                                           |
+|   |                          |    |                                           |
+|   | [ Send Message ]         |    |                                           |
+|   +--------------------------+    |                                           |
++------------------------------------------------------------------------------+
+| [NAVY DARK] FOOTER                                                            |
++------------------------------------------------------------------------------+
+
+
+================================================================================
+8. MOTION & ANIMATION GUIDELINES
+================================================================================
+
+Animation        | Trigger              | Duration | Easing       | Implementation
+-----------------|----------------------|----------|--------------|-------------------------------
+Fade up          | Scroll into view     | 600ms    | ease-out     | opacity 0→1, translateY 24→0
+Fade in          | Page load            | 500ms    | ease-out     | CSS keyframe
+Card hover lift  | Mouse hover          | 200ms    | ease-in-out  | translateY -4px, shadow up
+Button hover     | Mouse hover          | 200ms    | ease-in-out  | translateY -1px, bg change
+Nav collapse     | Scroll > 20px        | 300ms    | ease-in-out  | class toggle, height transition
+Mobile menu      | Hamburger click      | 250ms    | ease-out     | max-height 0→auto or slide
+Form success     | Submit success       | 300ms    | ease         | form → success message
+Stagger children | Parent enters view   | +100ms   | ease-out     | animation-delay increments
+
+RULES:
+  - Animations must never feel slow or block interaction
+  - Shorter durations and subtler movements preferred
+  - Reserve scroll-triggered animations for section entries only
+
+
+================================================================================
+9. RESPONSIVE BREAKPOINTS
+================================================================================
+
+Breakpoint       | Min Width | Key Layout Changes
+-----------------|-----------|---------------------------------------------------
+Mobile (default) | 320px+    | Single column, stacked sections, hamburger nav
+Tablet sm        | 640px+    | 2-column grids begin (services, values)
+Tablet md        | 768px+    | Desktop nav appears, 2-col form+info on Contact
+Desktop lg       | 1024px+   | 3-column grids, hero text increases
+Desktop xl       | 1280px+   | Max content width (max-w-7xl) applied
+Large 2xl        | 1536px+   | No changes; max-w-7xl caps layout
+
+
+================================================================================
+10. ACCESSIBILITY REQUIREMENTS
+================================================================================
+
+  - All colour combos meet WCAG 2.1 AA contrast (4.5:1 body, 3:1 large text)
+  - Focus states: 2px teal ring on ALL interactive elements (never remove outline)
+  - All images must have descriptive alt text
+  - Form fields must have associated <label> elements (not placeholder-only)
+  - Error messages linked to fields via aria-describedby
+  - Navigation keyboard-navigable (Tab, Enter, Escape for mobile menu)
+  - Skip-to-content link at top of page for screen readers
+  - Semantic HTML: nav, main, section, article, header, footer, h1–h3 hierarchy
+
+
+================================================================================
+11. ICONS & IMAGERY
+================================================================================
+
+ICON LIBRARY:
+  - Primary      : Lucide React (MIT license, clean SVG)
+  - Size scale   : 16px inline | 20px nav | 24px card | 32px feature | 48px hero
+  - Industry     : Custom or Heroicons filled, teal colour on light backgrounds
+  - Process steps: Numbered circles (navy bg, white number) OR Lucide outlines
+
+IMAGERY GUIDELINES:
+  - Photography   : Diverse, professional, US workplace settings
+  - MVP placeholders: CSS gradient backgrounds with geometric SVG patterns
+  - Avoid generic "diverse people smiling" stock photos
+  - Hero background: dark overlay (60–70% opacity) + abstract geometric pattern
+  - All images via Next.js Image component with width/height and lazy loading
+
+
+================================================================================
+12. DESIGN MVP SCOPE CHECKLIST
+================================================================================
+
+INCLUDED IN DESIGN MVP:
+  [x] Complete design token system (colours, typography, spacing)
+  [x] All 8 page layout wireframes
+  [x] Navbar and Footer component specs
+  [x] Button, card, form field component specs
+  [x] Responsive breakpoint definitions
+  [x] Animation guidelines
+  [x] Accessibility minimum requirements
+
+NOT INCLUDED IN DESIGN MVP:
+  [ ] High-fidelity Figma/Sketch mockups (not required — docs sufficient for dev)
+  [ ] Custom illustration assets (use placeholders)
+  [ ] Branded photography (client to provide or use Unsplash placeholders)
+  [ ] Dark mode variant (future enhancement)
+
+NOTE: This Design MVP document, combined with the PRD, provides everything a
+developer needs to build the complete Maxera Talent website without a separate
+design tool. All design decisions are documented and final.
+
+================================================================================
+END OF DESIGN MVP DOCUMENT
+================================================================================

@@ -1,0 +1,457 @@
+================================================================================
+MAXERA TALENT — PRODUCT REQUIREMENTS DOCUMENT (PRD)
+Version: 1.0 | Date: June 2025 | Status: Final – Ready for Development
+Target Market: United States
+================================================================================
+
+================================================================================
+1. EXECUTIVE SUMMARY
+================================================================================
+
+Maxera Talent is a United States-based contingent recruitment and staffing firm.
+This document defines all product, functional, and technical requirements for the
+design, development, and launch of the Maxera Talent website.
+
+The website serves a dual audience:
+  (1) Companies seeking to hire qualified professionals
+  (2) Job seekers looking for career opportunities
+
+The platform must establish credibility, generate qualified leads from hiring
+managers, and attract strong candidates across key industries.
+
+Project Info:
+  Business Model  : Contingent Recruitment / Staffing Firm
+  Primary Goal    : Lead generation from employers + candidate pipeline
+  Secondary Goal  : Brand authority in the US staffing market
+  Target Market   : United States – nationwide
+  Launch Scope    : 8 pages, fully responsive, Vercel-deployed
+
+
+================================================================================
+2. PROJECT OBJECTIVES
+================================================================================
+
+BUSINESS GOALS
+- Convert website visitors (employers) into active hiring clients via lead forms
+- Build a qualified candidate pipeline through job listings and resume submission
+- Establish Maxera Talent as a credible staffing brand in the US market
+- Support SEO growth to capture organic search traffic from target personas
+
+PRODUCT GOALS
+- Deliver a fast-loading, mobile-first website meeting Core Web Vitals standards
+- Implement accessible, component-based code architecture for scalability
+- Provide seamless UX across all 8 pages with clear conversion paths
+- Enable form-based data capture for employers and candidates
+
+
+================================================================================
+3. TARGET AUDIENCES
+================================================================================
+
+Persona                    | Description                                        | Primary Goal on Site
+---------------------------|----------------------------------------------------|-----------------------------------------
+Hiring Manager / HR Dir    | Mid-to-large US company needing to fill roles fast | Submit hire request; understand services
+Talent Acquisition Leader  | TA professional evaluating staffing partners       | Compare services, review process, contact
+Active Job Seeker          | Professional actively seeking a new role           | Browse jobs, upload resume, apply
+Passive Candidate          | Employed professional open to opportunities        | Explore industries, register interest
+
+
+================================================================================
+4. WEBSITE SITEMAP & PAGE INVENTORY
+================================================================================
+
+Page        | URL Slug     | Primary CTA              | Priority
+------------|--------------|--------------------------|------------------
+Home        | /            | Hire Talent Today        | P0 – Critical
+About       | /about       | Get in Touch             | P1 – Required
+Services    | /services    | Learn More / Contact     | P1 – Required
+Industries  | /industries  | Find Your Industry       | P1 – Required
+Employers   | /employers   | Submit Hiring Request    | P0 – Critical
+Candidates  | /candidates  | Upload Resume            | P0 – Critical
+Jobs        | /jobs        | Apply Now                | P0 – Critical
+Contact     | /contact     | Send Message             | P1 – Required
+
+
+================================================================================
+5. DETAILED PAGE REQUIREMENTS
+================================================================================
+
+--------------------------------------------------------------------------------
+5.1 HOME PAGE (/)
+--------------------------------------------------------------------------------
+
+PURPOSE:
+Primary landing page. Establish brand identity, communicate value proposition,
+drive employer and candidate conversions.
+
+SECTIONS REQUIRED:
+
+[1] Hero Section
+    - Full-width hero with headline, sub-headline
+    - Two CTAs: "Hire Talent" (primary) and "Find Jobs" (secondary)
+    - Background: dark navy with geometric or abstract overlay
+    - Trust indicators: serving US companies, placements count, etc.
+
+[2] Company Introduction
+    - 2–3 sentence overview of Maxera Talent's mission and specialisation
+    - Supporting stat or credibility badge (optional MVP)
+
+[3] Services Overview
+    - Three service cards: Contingent Recruitment, Contract Staffing, Direct Hire
+    - Icon, title, 1-line description, and "Learn More" link per card
+
+[4] Industries Section
+    - 5 industry tiles: Technology, Healthcare, Finance, Engineering, Business Ops
+    - Icon + label layout, links to Industries page
+
+[5] Hiring Process Section
+    - 5-step numbered flow:
+      1. Understand Requirements
+      2. Source Candidates
+      3. Screen Candidates
+      4. Coordinate Interviews
+      5. Successful Placement
+
+[6] Testimonials Section (optional for MVP)
+    - 2–3 placeholder quotes with name, title, company
+
+[7] Call to Action Banner
+    - Headline: "Ready to Build Your Team?"
+    - CTA Button: "Hire Talent Today" — links to /employers
+
+
+--------------------------------------------------------------------------------
+5.2 ABOUT PAGE (/about)
+--------------------------------------------------------------------------------
+
+PURPOSE:
+Build trust and credibility. Communicate company story, values, and the people
+behind Maxera Talent.
+
+SECTIONS REQUIRED:
+- Page Hero: heading + short description
+- Company Overview: 2–4 paragraphs on background and approach
+- Mission Statement: "Our Mission is to…" — prominent display
+- Vision Statement: "Our Vision is to…"
+- Core Values: 4–6 values as cards or grid
+  Examples: Integrity, Speed, Partnership, Excellence, Transparency, Quality
+- Team Section (optional for MVP): placeholder cards with role titles
+
+
+--------------------------------------------------------------------------------
+5.3 SERVICES PAGE (/services)
+--------------------------------------------------------------------------------
+
+PURPOSE:
+Explain each service offering in detail to help employers understand what
+Maxera Talent delivers.
+
+SERVICE 1 — CONTINGENT RECRUITMENT
+  Definition : Placement fee paid only upon successful hire. No upfront cost.
+  Ideal for  : Companies looking to reduce hiring risk
+  Include    : Key benefits, typical timeline, process overview
+
+SERVICE 2 — CONTRACT STAFFING
+  Definition : Temporary professionals placed for a defined project or period
+  Ideal for  : Project-based needs, seasonal demand, backfill situations
+  Include    : Key benefits, typical engagement duration
+
+SERVICE 3 — DIRECT HIRE / PERMANENT PLACEMENT
+  Definition : Full-time placement with guaranteed replacement period
+  Ideal for  : Building long-term teams with committed professionals
+  Include    : Key benefits, guarantee terms
+
+
+--------------------------------------------------------------------------------
+5.4 INDUSTRIES PAGE (/industries)
+--------------------------------------------------------------------------------
+
+Industry             | Example Roles                              | Description
+---------------------|--------------------------------------------|-----------------------------------------
+Technology           | Software Engineers, PMs, Data Scientists   | End-to-end tech talent, startup to enterprise
+Healthcare           | Clinical, Allied Health, Admin             | Credentialed professionals, clinical & non-clinical
+Finance              | Analysts, Controllers, CFOs                | Finance professionals across public/private sector
+Engineering          | Civil, Mechanical, Electrical              | Project and staff engineering across disciplines
+Business Operations  | Ops Managers, HR, Customer Success         | Operational talent to keep businesses running
+
+
+--------------------------------------------------------------------------------
+5.5 EMPLOYERS PAGE (/employers)
+--------------------------------------------------------------------------------
+
+PURPOSE:
+Convert visiting companies into active clients. Highest-priority conversion page.
+
+SECTIONS REQUIRED:
+- Hero: "Let's Find Your Next Hire" + brief intro
+- Why Maxera Talent: 4–6 benefit bullets (speed, quality, network, no-hire-no-fee)
+- Hiring Process Steps: same 5-step flow as homepage (shared component)
+- Hiring Request Form:
+    Fields   : Full Name, Company, Job Title, Email, Phone,
+               Industry (dropdown), Job Type (dropdown), Message / Role Details
+    Required : All fields except Message
+    Submit   : Show confirmation message after successful submit
+
+
+--------------------------------------------------------------------------------
+5.6 CANDIDATES PAGE (/candidates)
+--------------------------------------------------------------------------------
+
+PURPOSE:
+Attract and convert job seekers. Give them a clear reason to share information.
+
+SECTIONS REQUIRED:
+- Hero: "Your Next Opportunity Starts Here" + intro copy
+- Why Work With Us: 3–4 candidate-facing benefit bullets
+- How It Works: 3-step process
+    1. Submit Resume
+    2. Screening Call
+    3. Placement
+- Job Categories: visual links to /jobs filtered by industry
+- Resume Submission Form:
+    Fields   : Full Name, Email, Phone, Desired Job Title,
+               Industry (dropdown), Upload Resume (PDF/DOC max 5MB),
+               Message (optional)
+    Required : Full Name, Email, Resume file
+    Validate : File type (PDF/DOC only), file size (max 5MB) — client-side
+    Submit   : Show "Thank you, we'll be in touch" success message
+
+
+--------------------------------------------------------------------------------
+5.7 JOBS PAGE (/jobs)
+--------------------------------------------------------------------------------
+
+PURPOSE:
+Display open positions. Allow candidates to browse and apply.
+
+SECTIONS REQUIRED:
+- Page Hero: "Browse Open Positions"
+- Filter Bar (optional MVP): filter by Industry, Location, Job Type
+- Job Listings Grid/List:
+    Each card includes:
+      - Job Title
+      - Location (City, State)
+      - Job Type badge (Full-time / Contract / Part-time)
+      - Industry tag
+      - Short description (2–3 sentences)
+      - "Apply Now" button
+- No Jobs State: placeholder message if no listings exist
+- Default: 6–8 seeded placeholder jobs across industries for MVP launch
+
+
+--------------------------------------------------------------------------------
+5.8 CONTACT PAGE (/contact)
+--------------------------------------------------------------------------------
+
+PURPOSE:
+Catch-all inquiry page for both employers and candidates.
+
+SECTIONS REQUIRED:
+- Contact Form:
+    Fields   : Full Name (required), Email (required), Company, Phone,
+               Message (required)
+    Submit   : Show "We've received your message" confirmation
+- Contact Information:
+    - Company email address
+    - Office address (if applicable)
+    - Business hours
+
+
+================================================================================
+6. NAVIGATION & HEADER
+================================================================================
+
+GLOBAL HEADER:
+- Logo: Maxera Talent wordmark + icon — links to /
+- Nav links: Home | About | Services | Industries | Employers | Candidates | Jobs | Contact
+- Primary CTA Button: "Hire Talent" — teal background — links to /employers
+- Behaviour: sticky on scroll, transparent on hero → solid navy on scroll-down
+- Mobile: hamburger menu with slide-out or dropdown drawer
+
+GLOBAL FOOTER:
+- Logo + 1-line tagline
+- Quick links: all 8 pages
+- Services links: Contingent Recruitment, Contract Staffing, Direct Hire
+- Contact info: email address
+- Copyright: © 2025 Maxera Talent. All rights reserved.
+
+
+================================================================================
+7. FORMS & DATA CAPTURE
+================================================================================
+
+Form               | Page        | Key Fields                                    | Validation
+-------------------|-------------|-----------------------------------------------|------------------------------
+Contact Form       | /contact    | Name, Email, Company, Phone, Message          | Name, Email, Message required
+Hiring Request     | /employers  | Name, Company, Title, Email, Phone, Industry  | All except Message required
+Resume Submission  | /candidates | Name, Email, Phone, Title, Industry, File     | Name, Email, File required
+
+- All forms: React Hook Form + Zod validation
+- Error messages: inline, clear, accessible
+- Success states: shown without page reload
+- File upload: PDF/DOC only, max 5MB, validated client-side
+
+
+================================================================================
+8. TECHNICAL REQUIREMENTS
+================================================================================
+
+TECH STACK:
+  Framework   : Next.js 14 (App Router)
+  Language    : TypeScript (strict mode)
+  Styling     : Tailwind CSS (utility-first, no CSS-in-JS)
+  Forms       : React Hook Form + Zod
+  Hosting     : Vercel (CI/CD via GitHub)
+  SEO         : Next.js Metadata API (per-page metadata, OpenGraph, sitemap.xml)
+  Images      : Next.js Image component (lazy load, WebP optimisation)
+  Icons       : Lucide React or HeroIcons
+
+PERFORMANCE TARGETS:
+  Lighthouse Performance (mobile)  : >= 90
+  Largest Contentful Paint (LCP)   : < 2.5s
+  First Input Delay (FID)          : < 100ms
+  Cumulative Layout Shift (CLS)    : < 0.1
+  Page bundle size (gzipped)       : < 200kB per page
+
+SEO REQUIREMENTS:
+  - Unique <title> and meta description per page
+  - Semantic HTML: correct h1–h3 hierarchy
+  - Open Graph and Twitter Card tags
+  - robots.txt and sitemap.xml auto-generated
+  - Structured data (JSON-LD) on Jobs page for Google Jobs indexing
+
+
+================================================================================
+9. DESIGN SYSTEM SUMMARY
+================================================================================
+
+Token           | Value              | Usage
+----------------|--------------------|-----------------------------------------
+Primary Color   | #0a1628 (Navy)     | Backgrounds, hero, nav, headings
+Accent Color    | #0d9488 (Teal)     | CTAs, buttons, highlights, links
+Surface Color   | #f8fafc            | Card backgrounds, alternating rows
+Body Text       | #334155            | All paragraph text
+Muted Text      | #64748b            | Labels, secondary copy
+Display Font    | Sora (Google)      | Headings, CTAs, nav labels
+Body Font       | DM Sans (Google)   | Paragraph text, form fields
+Border Radius   | 8px / 16px         | Buttons / Cards
+Spacing Unit    | 4px base           | All spacing in multiples of 4
+
+
+================================================================================
+10. COMPONENT ARCHITECTURE
+================================================================================
+
+src/app/
+  layout.tsx                  — Root layout (Navbar + Footer)
+  page.tsx                    — Home page
+  about/page.tsx              — About page
+  services/page.tsx           — Services page
+  industries/page.tsx         — Industries page
+  employers/page.tsx          — Employers page
+  candidates/page.tsx         — Candidates page
+  jobs/page.tsx               — Jobs page
+  contact/page.tsx            — Contact page
+
+src/components/
+  layout/Navbar.tsx           — Global header with mobile menu
+  layout/Footer.tsx           — Global footer
+  ui/Button.tsx               — Reusable button variants
+  ui/Card.tsx                 — Reusable card wrapper
+  ui/FormField.tsx            — Reusable input + error display
+  sections/Hero.tsx           — Reusable hero component
+  sections/ServicesGrid.tsx   — Services cards section
+  sections/IndustriesGrid.tsx — Industries tiles section
+  sections/HiringProcess.tsx  — 5-step process section
+  sections/CTABanner.tsx      — Bottom CTA strip
+  forms/ContactForm.tsx       — Contact page form
+  forms/HiringForm.tsx        — Employer request form
+  forms/ResumeForm.tsx        — Candidate resume form
+
+src/lib/
+  data/jobs.ts                — Static job listing data
+  data/industries.ts          — Industry data
+  schemas/                    — Zod validation schemas
+  utils.ts                    — cn() utility + helpers
+
+
+================================================================================
+11. FEATURE PRIORITISATION (MoSCoW)
+================================================================================
+
+MUST HAVE (Sprint 1):
+- All 8 pages implemented
+- Navbar (responsive) + Footer
+- Contact Form with validation
+- Hiring Request Form
+- Resume Upload Form
+- Job Listings (static data)
+- Mobile responsive layout
+- SEO metadata per page
+
+SHOULD HAVE (Sprint 2):
+- Filter bar on Jobs page
+- Testimonials section
+- JSON-LD structured data on Jobs page
+
+NICE TO HAVE (Sprint 3+):
+- Team section on About page
+- CMS integration for job listings
+- Email notifications on form submit
+- Blog / Resources section
+- Candidate portal / login
+
+
+================================================================================
+12. DEFINITION OF DONE / ACCEPTANCE CRITERIA
+================================================================================
+
+- All 8 pages live, linked correctly, no errors on Chrome/Firefox/Safari/Edge
+- All 3 forms validate correctly and show success states on submission
+- Resume upload accepts PDF/DOC up to 5MB; rejects invalid types with error
+- Website fully usable on mobile (320px+), tablet (768px+), desktop (1280px+)
+- Lighthouse scores >= 90 for Performance, Accessibility, Best Practices, SEO
+- Navigation consistent across all pages with active link state
+- All CTAs link to the correct destination pages
+- No broken links, missing images, or console errors in production
+- Site deployed to Vercel with custom domain or Vercel subdomain
+- robots.txt and sitemap.xml accessible at root
+
+
+================================================================================
+13. OUT OF SCOPE (v1.0)
+================================================================================
+
+- Candidate login portal or saved job applications
+- Employer dashboard or ATS integration
+- Live chat widget
+- Payment processing
+- Backend CMS for job listings (static data only in v1)
+- Email automation or drip campaigns
+- Multi-language support
+
+
+================================================================================
+14. ASSUMPTIONS & DEPENDENCIES
+================================================================================
+
+- Client will provide final logo assets in SVG format before development
+- Copy (headlines, about text, mission/vision) to be provided by client or drafted
+- Job listings will be hardcoded as static data for v1
+- Form submissions via serverless function, Formspree, or similar — TBD
+- Domain and DNS configuration handled by client; Vercel project transferred post-launch
+- No backend database required for v1; all data is static
+
+
+================================================================================
+15. SUGGESTED DEVELOPMENT TIMELINE
+================================================================================
+
+Sprint 0 – Setup    (2 days)  : Repo, Next.js scaffold, Tailwind, component library, Vercel pipeline
+Sprint 1 – Core     (5 days)  : All 8 pages, Navbar, Footer, design system, responsive layout, forms
+Sprint 2 – Polish   (3 days)  : Animations, SEO metadata, Lighthouse fixes, cross-browser QA, job filter
+Sprint 3 – Launch   (2 days)  : Final QA, accessibility audit, stakeholder review, go-live on Vercel
+
+================================================================================
+END OF PRD
+================================================================================

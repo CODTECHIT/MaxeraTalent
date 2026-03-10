@@ -1,0 +1,244 @@
+@import "tailwindcss";
+
+@theme {
+  /* Primary: Dark Blue */
+  --color-navy: #0B1F3B;
+  --color-navy-dark: #06162B;
+  --color-navy-light: #14365E;
+
+  /* Secondary blues (supporting) */
+  --color-blue: #1D4ED8;
+  --color-blue-light: #60A5FA;
+
+  /*
+    Accent system (Teal / Green)
+    NOTE: many components use classes like bg-orange/text-orange/bg-red.
+    To avoid refactoring class names, we point those tokens to teal/green hues.
+  */
+
+  /* Teal accents (mapped from "orange" tokens) */
+  --color-orange: #0F766E;       /* primary teal */
+  --color-orange-light: #2DD4BF; /* light teal */
+  --color-orange-dark: #0B4F48;  /* deep teal */
+
+  /* Green accents (mapped from "red" tokens) */
+  --color-red: #15803D;        /* primary green */
+  --color-red-light: #22C55E;  /* light green */
+  --color-red-dark: #166534;   /* deep green */
+
+  /* Extra (available if needed) */
+  --color-copper: var(--color-orange);
+  --color-copper-light: var(--color-orange-light);
+
+  /* Neutrals */
+  --color-surface: #F7F8FA;
+  --color-surface-elevated: #FFFFFF;
+  --color-slate: #0F172A;
+  --color-body: #1F2937;
+  --color-muted: #64748B;
+  --color-border: #E5E7EB;
+  --color-border-light: #F1F5F9;
+
+  /* Font variables wired from next/font in layout.tsx */
+  --font-sora: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-dm-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+
+  --radius-button: 30px;
+  --radius-card: 30px;
+
+  --animate-fade-up: fade-up 600ms ease-out forwards;
+  --animate-fade-in: fade-in 500ms ease-out forwards;
+  --animate-fade-up-delayed: fade-up 600ms ease-out 100ms forwards;
+  --animate-slide-in-left: slide-in-left 600ms ease-out forwards;
+  --animate-slide-in-right: slide-in-right 600ms ease-out forwards;
+  --animate-scale-in: scale-in 500ms ease-out forwards;
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-marquee-duplicate: marquee-duplicate 30s linear infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-28px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(28px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes marquee-duplicate {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-100%);
+    }
+  }
+}
+
+@layer utilities {
+  .hero-gradient {
+    @apply bg-gradient-to-r from-black/20 via-black/35 to-black/60;
+  }
+
+  .chevron-card {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 50% 100%, 0% 85%);
+  }
+}
+
+@layer utilities {
+  /*
+    CodePen-inspired scroll-linked motion for Industries section.
+    Uses CSS view-timeline when supported, with graceful fallback.
+  */
+  @supports (animation-timeline: view()) {
+    .industries-playbook {
+      view-timeline-name: --industries;
+      view-timeline-axis: block;
+    }
+
+    .industries-playbook__card {
+      animation-name: industries-card;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --industries;
+      animation-range: entry 10% cover 45%;
+      will-change: transform, opacity;
+    }
+
+    @keyframes industries-card {
+      from {
+        opacity: 0.55;
+        transform: translateY(14px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+  }
+}
+
+:root {
+  --background: var(--color-surface-elevated);
+  --foreground: var(--color-body);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-dm-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-sora), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 600;
+  color: var(--color-slate);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+.section-padding {
+  @apply py-12 sm:py-16 lg:py-20;
+}
+
+.container-custom {
+  @apply max-w-7xl mx-auto px-5 sm:px-6 lg:px-8;
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
